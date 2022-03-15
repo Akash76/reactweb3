@@ -15,7 +15,6 @@ function App() {
   const load = async () => {
     console.log(userAuthenticated)
     setIsAuthenticating(false)
-    setUserAuthenticated(false)
   }
 
   const logout = async () => {
