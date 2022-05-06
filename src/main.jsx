@@ -8,7 +8,7 @@ import { ChainId, DAppProvider, Localhost } from '@usedapp/core'
 ReactDOM.render(
   <React.StrictMode>
     <Router>
-      <DAppProvider config={{
+      {/* <DAppProvider config={{
         // readOnlyChainId: Localhost.chainId,
         readOnlyUrls: {
           31337: `http://localhost:8545`
@@ -24,9 +24,9 @@ ReactDOM.render(
           ChainId.Localhost,
           ChainId.Hardhat,
         ],
-      }}>
+      }}> */}
         <App />
-      </DAppProvider>
+      {/* </DAppProvider> */}
     </Router>
   </React.StrictMode>,
   document.getElementById('root')

@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { AppContext } from './utils/context';
+import { query, connectWallet } from './utils/contract';
 import AppRoutes from './AppRoutes';
-import { setAxiosHeaders } from './utils/setAxiosHeaders';
 import './App.css';
 
 function App() {
@@ -13,8 +13,9 @@ function App() {
   }, [])
 
   const load = async () => {
-    console.log(userAuthenticated)
     setIsAuthenticating(false)
+    await connectWallet()
+    await query()
   }
 
   const logout = async () => {
