@@ -1,24 +1,29 @@
 import { useState, useEffect } from 'react'
 import { AppContext } from './utils/context';
-import { query, connectWallet } from './utils/contract';
+import { query, checkWalletConnection } from './utils/contract';
 import AppRoutes from './AppRoutes';
 import './App.css';
 
 function App() {
   const [isAuthenticating, setIsAuthenticating] = useState(true);
   const [userAuthenticated, setUserAuthenticated] = useState(false);
-  
+  const [web3Account, setWeb3Account] = useState(null)
+
   useEffect(() => {
     load();
   }, [])
 
   const load = async () => {
+    console.log("MM", await window.ethereum._metamask.isUnlocked())
     setIsAuthenticating(false)
-    await connectWallet()
-    await query()
+    // await connectWallet()
+    // await query()
+    const account = await checkWalletConnection()
+    setWeb3Account(account)
   }
 
-  const logout = async () => {
+  const disconnect = async () => {
+    setWeb3Account(null)
   }
 
   return (
@@ -29,7 +34,9 @@ function App() {
           userAuthenticated,
           setUserAuthenticated,
           isAuthenticating,
-          logout
+          disconnect,
+          web3Account,
+          setWeb3Account
         }}>
           <AppRoutes />
         </AppContext.Provider>

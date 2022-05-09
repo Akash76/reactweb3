@@ -1,22 +1,23 @@
 import React from "react";
-import { useEthers, useEtherBalance, useContractFunction, useContractCall } from "@usedapp/core";
-import { utils } from "ethers";
-import { formatEther } from "@ethersproject/units"
-import { Contract } from "@ethersproject/contracts"
-import GreeterContractABI from "../../contract/src/artifacts/contracts/Greeter.sol/Greeter.json"
+import { connectWallet, checkWalletConnection, query } from "../utils/contract";
+import { useAppContext } from "../utils/context"
 import "./LandingPage.css";
 
 function LandingPage() {
-  React.useEffect(() => {
-    console.log(data)
-  }, [])
+  const { web3Account, setWeb3Account, disconnect } = useAppContext();
 
-  return account ? (
+  const connect = async () => {
+      const web3Accounts = await connectWallet()
+      setWeb3Account(web3Accounts[0])
+  }
+
+  return web3Account ? (
     <div className="landingpage">
-      
+      <h3>{web3Account}</h3>
+      <button onClick={() => query()}>Query</button>
     </div>
   ) : (
-    <button>Connect</button>
+    <button onClick={() => connect()}>Connect</button>
   );
 }
 

@@ -5,16 +5,12 @@ const { ethereum } = window;
 const createEthereumContract = () => {
   const provider = new ethers.providers.Web3Provider(ethereum);
   const signer = provider.getSigner();
-  const greeterContract = new ethers.Contract(
-    contractAddress,
-    ABI,
-    signer
-  );
+  const greeterContract = new ethers.Contract(contractAddress, ABI, signer);
 
   return greeterContract;
 };
 
-const checkWalletConnection = async () => {
+export const checkWalletConnection = async () => {
   try {
     if (!ethereum) return alert("Please install MetaMask.");
 
@@ -33,26 +29,24 @@ const checkWalletConnection = async () => {
 };
 
 export const query = async () => {
-    try {
-        // await checkWalletConnection();
-
-        const greeterContract = createEthereumContract();
-        console.log(await greeterContract.greeting())
-    } catch (error) {
-        console.log(error)
-    }
+  try {
+    const greeterContract = createEthereumContract();
+    console.log(await greeterContract.greeting());
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 export const connectWallet = async () => {
-    try {
-      if (!ethereum) return alert("Please install MetaMask.");
+  try {
+    if (!ethereum) return alert("Please install MetaMask.");
 
-      const accounts = await ethereum.request({ method: "eth_requestAccounts", });
+    const accounts = await ethereum.request({ method: "eth_requestAccounts" });
+    return accounts
+  } catch (error) {
+    console.log(error);
 
-    //   window.location.reload();
-    } catch (error) {
-      console.log(error);
+    throw new Error("No ethereum object");
+  }
+};
 
-      throw new Error("No ethereum object");
-    }
-  };
