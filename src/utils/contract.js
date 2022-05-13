@@ -21,7 +21,7 @@ export const checkWalletConnection = async () => {
 
       return currentAccount
     } else {
-      console.log("No accounts found");
+      return null
     }
   } catch (error) {
     console.log(error);
@@ -42,11 +42,10 @@ export const connectWallet = async () => {
     if (!ethereum) return alert("Please install MetaMask.");
 
     const accounts = await ethereum.request({ method: "eth_requestAccounts" });
-    return accounts
+    return accounts[0]
   } catch (error) {
     console.log(error);
 
     throw new Error("No ethereum object");
   }
 };
-

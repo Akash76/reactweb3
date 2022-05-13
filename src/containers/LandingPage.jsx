@@ -7,14 +7,19 @@ function LandingPage() {
   const { web3Account, setWeb3Account, disconnect } = useAppContext();
 
   const connect = async () => {
-      const web3Accounts = await connectWallet()
-      setWeb3Account(web3Accounts[0])
+    let web3Accounts = await checkWalletConnection()
+    if(!web3Accounts) {
+      web3Accounts = await connectWallet()
+    }
+    setWeb3Account(web3Accounts)
+    localStorage.setItem("disconnected", "FALSE")
   }
 
   return web3Account ? (
     <div className="landingpage">
       <h3>{web3Account}</h3>
       <button onClick={() => query()}>Query</button>
+      <button onClick={() => disconnect()}>Disconnect</button>
     </div>
   ) : (
     <button onClick={() => connect()}>Connect</button>
