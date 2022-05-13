@@ -49,3 +49,15 @@ export const connectWallet = async () => {
     throw new Error("No ethereum object");
   }
 };
+
+export const getNetworkName = (chainId) => {
+  const networkIdMapping = {
+    "0x1": "Mainnet",
+    "0x3": "Ropsten Testnet",
+    "0x4": "Rinkeby Testnet",
+    "0x42": "Kovan Testnet",
+    "0x13881": "Polygon Matic"
+  }
+
+  return networkIdMapping[chainId]
+}
