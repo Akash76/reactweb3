@@ -1,24 +1,19 @@
 import React from "react";
-import { connectWallet, checkWalletConnection, query } from "../utils/contract";
 import { useAppContext } from "../utils/context"
+import { MetaMaskConnector } from 'wagmi/connectors/metaMask'
+import { useConnect } from 'wagmi'
 import "./LandingPage.css";
 
 function LandingPage() {
-  const { web3Account, setWeb3Account, disconnect } = useAppContext();
+  const { disconnect, data } = useAppContext();
 
-  const connect = async () => {
-    let web3Accounts = await checkWalletConnection()
-    if(!web3Accounts) {
-      web3Accounts = await connectWallet()
-    }
-    setWeb3Account(web3Accounts)
-    localStorage.setItem("disconnected", "FALSE")
-  }
+  const { connect } = useConnect({
+    connector: new MetaMaskConnector(),
+  })
 
-  return web3Account ? (
+  return data ? (
     <div className="landingpage">
-      <h3>{web3Account}</h3>
-      <button onClick={() => query()}>Query</button>
+      <h3>{data.address}</h3>
       <button onClick={() => disconnect()}>Disconnect</button>
     </div>
   ) : (
