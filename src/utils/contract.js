@@ -37,6 +37,15 @@ export const query = async () => {
   }
 };
 
+export const invoke = async () => {
+  try {
+    const greeterContract = createEthereumContract();
+    console.log(await greeterContract.greeting());
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 export const connectWallet = async () => {
   try {
     if (!ethereum) return alert("Please install MetaMask.");

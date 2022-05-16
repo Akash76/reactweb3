@@ -1,15 +1,9 @@
 import React from "react";
 import { useAppContext } from "../utils/context"
-import { MetaMaskConnector } from 'wagmi/connectors/metaMask'
-import { useConnect } from 'wagmi'
 import "./LandingPage.css";
 
 function LandingPage() {
-  const { disconnect, data } = useAppContext();
-
-  const { connect } = useConnect({
-    connector: new MetaMaskConnector(),
-  })
+  const { connect, disconnect, data } = useAppContext();
 
   return data ? (
     <div className="landingpage">
