@@ -15,7 +15,7 @@ const signer = new ethers.Wallet(PRIVATE_KEY, alchemyProvider);
 const greeterContract = new ethers.Contract(CONTRACT_ADDRESS, contract.abi, signer);
 
 (async () => {
-    await greeterContract.setGreeting("Hi Akash")
+    await greeterContract.setGreeting("Scorpion")
     const greeting = await greeterContract.greeting()
     console.log(greeting)
 })()
