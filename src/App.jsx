@@ -1,50 +1,71 @@
-import { useState, useEffect } from 'react'
-import { AppContext } from './utils/context';
-import { checkWalletConnection } from './utils/contract';
-import AppRoutes from './AppRoutes';
+import React from 'react'
+import MetaMaskOnboarding from '@metamask/onboarding';
 import './App.css';
 
-function App() {
-  const [isAuthenticating, setIsAuthenticating] = useState(true);
-  const [userAuthenticated, setUserAuthenticated] = useState(false);
-  const [web3Account, setWeb3Account] = useState(null)
+const ONBOARD_TEXT = 'Click here to install MetaMask!';
+const CONNECT_TEXT = 'Connect';
+const CONNECTED_TEXT = 'Connected';
 
-  useEffect(() => {
-    load();
-  }, [])
+export function OnboardingButton() {
+  const [buttonText, setButtonText] = React.useState(ONBOARD_TEXT);
+  const [isDisabled, setDisabled] = React.useState(false);
+  const [accounts, setAccounts] = React.useState([]);
+  const onboarding = React.useRef();
 
-  const load = async () => {
-    try {
-      setIsAuthenticating(false)
-      if(await window.ethereum._metamask.isUnlocked() && localStorage.getItem("disconnected") === "FALSE") {
-        let web3Accounts = await checkWalletConnection()
-        setWeb3Account(web3Accounts)
-      } 
-    } catch (error) {
-      console.log(error)
+  React.useEffect(() => {
+    if (!onboarding.current) {
+      onboarding.current = new MetaMaskOnboarding();
     }
-  }
+  }, []);
 
-  const disconnect = async () => {
-    setWeb3Account(null)
-    localStorage.setItem("disconnected", "TRUE")
-  }
+  React.useEffect(() => {
+    if (MetaMaskOnboarding.isMetaMaskInstalled()) {
+      if (accounts.length > 0) {
+        setButtonText(CONNECTED_TEXT);
+        setDisabled(true);
+        onboarding.current.stopOnboarding();
+      } else {
+        setButtonText(CONNECT_TEXT);
+        setDisabled(false);
+      }
+    }
+  }, [accounts]);
 
+  React.useEffect(() => {
+    function handleNewAccounts(newAccounts) {
+      setAccounts(newAccounts);
+    }
+    if (MetaMaskOnboarding.isMetaMaskInstalled()) {
+      window.ethereum
+        .request({ method: 'eth_requestAccounts' })
+        .then(handleNewAccounts);
+      window.ethereum.on('accountsChanged', handleNewAccounts);
+      return () => {
+        window.ethereum.off('accountsChanged', handleNewAccounts);
+      };
+    }
+  }, []);
+
+  const onClick = () => {
+    if (MetaMaskOnboarding.isMetaMaskInstalled()) {
+      window.ethereum
+        .request({ method: 'eth_requestAccounts' })
+        .then((newAccounts) => setAccounts(newAccounts));
+    } else {
+      onboarding.current.startOnboarding();
+    }
+  };
   return (
-    !isAuthenticating &&
+    <button disabled={isDisabled} onClick={onClick}>
+      {buttonText}
+    </button>
+  );
+}
+
+function App() {
+  return (
     <div className="App">
-      <div className="routes">
-        <AppContext.Provider value={{
-          userAuthenticated,
-          setUserAuthenticated,
-          isAuthenticating,
-          disconnect,
-          web3Account,
-          setWeb3Account
-        }}>
-          <AppRoutes />
-        </AppContext.Provider>
-      </div>
+      <OnboardingButton />
     </div>
   )
 }
