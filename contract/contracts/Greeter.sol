@@ -11,11 +11,10 @@ contract Greeter {
     }
 
     function greet() public view returns (string memory) {
-        console.log("Greeting:", greeting);
         return greeting;
     }
 
-    function setGreeting(string memory _greeting) public {
+    function setGreeting(string memory _greeting) public payable {
         greeting = _greeting;
     }
 }

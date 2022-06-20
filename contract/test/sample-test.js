@@ -23,5 +23,11 @@ const { ethers } = require("hardhat");
   const greeter = await Greeter.deploy("Hello, world!");
   await greeter.deployed();
 
+  try {
+    await greeter.setGreeting("OKKKK", { value: 10 })    
+  } catch (error) {
+    console.log(error.message)
+  }
+  
   console.log(await greeter.greet())
 })()
