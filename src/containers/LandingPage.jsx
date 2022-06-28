@@ -1,5 +1,5 @@
 import React from "react";
-import { connectWallet, checkWalletConnection, query } from "../utils/contract";
+import { connectWallet, checkWalletConnection, query, invoke } from "../utils/contract";
 import { useAppContext } from "../utils/context"
 import "./LandingPage.css";
 
@@ -19,6 +19,7 @@ function LandingPage() {
     <div className="landingpage">
       <h3>{web3Account}</h3>
       <button onClick={() => query()}>Query</button>
+      <button onClick={() => invoke()}>Invoke</button>
       <button onClick={() => disconnect()}>Disconnect</button>
     </div>
   ) : (

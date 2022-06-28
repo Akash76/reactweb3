@@ -7,7 +7,7 @@ const PRIVATE_KEY = process.env.PRIVATE_KEY;
 const CONTRACT_ADDRESS = process.env.CONTRACT_ADDRESS;
 
 // Provider
-const alchemyProvider = new ethers.providers.AlchemyProvider(network="ropsten", API_KEY);
+const alchemyProvider = new ethers.providers.AlchemyProvider(network="goerli", API_KEY);
 
 // Signer
 const signer = new ethers.Wallet(PRIVATE_KEY, alchemyProvider);
@@ -15,7 +15,7 @@ const signer = new ethers.Wallet(PRIVATE_KEY, alchemyProvider);
 const greeterContract = new ethers.Contract(CONTRACT_ADDRESS, contract.abi, signer);
 
 (async () => {
-    await greeterContract.setGreeting("Hi Akash")
+    // await greeterContract.setGreeting("Paradox")
     const greeting = await greeterContract.greeting()
     console.log(greeting)
 })()
