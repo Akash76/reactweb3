@@ -40,7 +40,7 @@ export const query = async () => {
 export const invoke = async () => {
   try {
     const greeterContract = createEthereumContract()
-    await greeterContract.setGreeting("Reacted Paradox")
+    await greeterContract.setGreeting("Paradox")
     console.log("Contract invoked")
   } catch (error) {
     console.log(error)
