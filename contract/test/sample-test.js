@@ -30,4 +30,19 @@ const { ethers } = require("hardhat");
   }
   
   console.log(await greeter.greet())
+});
+
+(async () => {
+  const Toaster = await ethers.getContractFactory("Toaster");
+  const toaster = await Toaster.deploy();
+  await toaster.deployed();
+
+  try {
+    const setToastTx = await toaster.setToast("Hellooo")
+    await setToastTx.wait();
+
+    console.log(await toaster.returnToast());
+  } catch (error) {
+    console.log(error.message)
+  }
 })()

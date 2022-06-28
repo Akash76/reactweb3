@@ -29,6 +29,10 @@ module.exports = {
     goerli: {
       url: `https://eth-goerli.alchemyapi.io/v2/${process.env.API_KEY}`,
       accounts: [`${process.env.PRIVATE_KEY}`]
+    },
+    toastGoerli: {
+      url: `https://eth-goerli.alchemyapi.io/v2/${process.env.API_KEY_TOASTER}`,
+      accounts: [`${process.env.PRIVATE_KEY}`]
     }
   }
 };
@@ -36,3 +40,4 @@ module.exports = {
 // 0x5FbDB2315678afecb367f032d93F642f64180aa3
 // Greeter => 0x810Dc166CF07Aa3386DA8AfBdDEB18Ec057c8C6b
 // Greeter-Goerli => 0x810Dc166CF07Aa3386DA8AfBdDEB18Ec057c8C6b
+// Toaster => 0x22830681102aB1c6B1AfA15eEa3dB861BFE170C1
