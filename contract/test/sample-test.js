@@ -1,5 +1,6 @@
 const { expect } = require("chai");
 const { ethers } = require("hardhat");
+const hre = require("hardhat");
 
 // describe("Greeter", function () {
 //   it("Should return the new greeting once it's changed", async function () {
@@ -45,4 +46,27 @@ const { ethers } = require("hardhat");
   } catch (error) {
     console.log(error.message)
   }
-})()
+});
+
+(async () => {
+  const Scorpion = await ethers.getContractFactory("Scorpion");
+  const scorp = await Scorpion.deploy();
+  await scorp.deployed();
+
+  try {
+    let id = await scorp.safeMint("0x8626f6940E2eb28930eFb4CeF49B2d1F2C9C1199", "https://abc.com")
+    console.log(id)
+  } catch (error) {
+    console.log(error.message)
+  }
+
+})();
+
+(async () => {
+  const accounts = await hre.ethers.getSigners();
+
+  for (const account of accounts) {
+    console.log(account.address);
+  }
+});
+
