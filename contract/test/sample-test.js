@@ -25,11 +25,11 @@ const hre = require("hardhat");
   await greeter.deployed();
 
   try {
-    await greeter.setGreeting("OKKKK", { value: 10 })    
+    await greeter.setGreeting("OKKKK", { value: 10 })
   } catch (error) {
     console.log(error.message)
   }
-  
+
   console.log(await greeter.greet())
 });
 
@@ -46,7 +46,7 @@ const hre = require("hardhat");
   } catch (error) {
     console.log(error.message)
   }
-});
+})();
 
 (async () => {
   const Scorpion = await ethers.getContractFactory("Scorpion");
@@ -60,7 +60,7 @@ const hre = require("hardhat");
     console.log(error.message)
   }
 
-})();
+});
 
 (async () => {
   const accounts = await hre.ethers.getSigners();

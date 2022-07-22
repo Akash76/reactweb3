@@ -6,7 +6,7 @@ const { ethers } = require("hardhat");
     await balance.deployed();
 
     try {
-        await balance.setData("Hi", {value: 1})
+        await balance.setData("Hi", { value: 1 })
         let ownerBalance = await balance.getOwnerBalance()
         let contractBalance = await balance.getBalance()
         console.log(`

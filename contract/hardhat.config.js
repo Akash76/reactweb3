@@ -33,6 +33,10 @@ module.exports = {
     toastGoerli: {
       url: `https://eth-goerli.alchemyapi.io/v2/${process.env.API_KEY_TOASTER}`,
       accounts: [`${process.env.PRIVATE_KEY}`]
+    },
+    scorpion: {
+      url: `https://eth-goerli.alchemyapi.io/v2/AvRAwdtpuVlQunDRerWd80ULo4iW60X5`,
+      accounts: [`${process.env.PRIVATE_KEY}`]
     }
   }
 };
@@ -41,3 +45,7 @@ module.exports = {
 // Greeter => 0x810Dc166CF07Aa3386DA8AfBdDEB18Ec057c8C6b
 // Greeter-Goerli => 0x810Dc166CF07Aa3386DA8AfBdDEB18Ec057c8C6b
 // Toaster => 0x22830681102aB1c6B1AfA15eEa3dB861BFE170C1
+// Scorpion-Goerli => 0x30d1b6AdEdd1074e00DeC80577ED8B042Fa5B09b
+
+
+//spn-localhost => 0x5FbDB2315678afecb367f032d93F642f64180aa3
